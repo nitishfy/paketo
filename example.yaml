@@ -1,0 +1,54 @@
+projects:
+  - rootProject: ""
+    name: isv:kubernetes
+    kind:
+    title: obs-project
+    description: this is a rough description
+    url: https://kubernetes.io
+    persons:
+      - userid:
+        role:
+    repositories:
+      - name:
+        architectures:
+          - arm64
+            x86
+        releaseTargets:
+          - project:
+            repository:
+            trigger:
+        path:
+          - project: 
+            repository:
+    build:
+      disable: {}
+# ...{other fields}
+    
+    packages:
+      - name: package1
+        project:
+        title:
+        description:
+        devel:
+          project:
+          package:
+      
+      - name: package2
+        project:
+    
+    subprojects:
+      - name: isv:kubernetes:core
+        rootProject: "isv:kubernetes"
+        kind: maintenance release
+        title: Kubernetes core project
+        description:
+        url: https://kubernetes.io
+        persons:
+          - userid: 
+            role:
+        repositories:
+        build:
+          disable: {}
+        packages:
+          - name: 
+      # ...{other fields}

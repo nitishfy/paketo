@@ -17,10 +17,18 @@ type Options struct {
 	OBSClient    *obs.OBS
 }
 
+type Info struct {
+	Username string
+	Password string
+	APIURL   string
+}
+
 func Reconcile() *cobra.Command {
 	ctx := context.Background()
 	opts := &Options{}
-	o := &obs.OBS{}
+	info := &Info{}
+	o := obs.New((*obs.Options)(info))
+
 	cmd := &cobra.Command{
 		Use:   "reconcile",
 		Short: "reconcile command for Paketo",
@@ -42,13 +50,18 @@ func Reconcile() *cobra.Command {
 			}
 
 			for _, prj := range prjs.Projects {
-				remotePrj, _ := o.GetProjectMetaFile(ctx, prj.Name)
-				if remotePrj != nil && remotePrj.Name != prj.Name {
+				remotePrj, err := o.GetProjectMetaFile(ctx, prj.Project.Name)
+				if err != nil {
+					fmt.Printf("%v", err)
+					return
+				}
+				if remotePrj == nil || remotePrj.Name != prj.Name {
 					fmt.Printf("Project %s doesn't exit!", prj.Name)
+					return
 				}
 			}
 
-			fmt.Println("Everything working well so far!")
+			fmt.Println("Project exists!")
 		},
 	}
 	cmd.Flags().StringP("manifest", "m", "", "path to read manifest")

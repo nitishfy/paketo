@@ -1,6 +1,6 @@
 projects:
   - rootProject: ""
-    name: home:Nieee
+    name: home:Nieee # doesn't exist
     kind:
     title: obs-project
     description: this is a rough description
